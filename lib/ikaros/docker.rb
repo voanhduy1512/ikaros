@@ -31,11 +31,14 @@ module Ikaros
       end
 
       def exec(command)
-        stdin, stdout, stderr, wait_thr = Open3.popen3(command) do |i,o,e,t|
+        stdout = ""
+        Open3.popen3(command) do |i,o,e,t|
           while line = o.gets
+            stdout = "#{stdout}#{line}"
             puts line
           end
         end
+        stdout
       end
     end
   end
