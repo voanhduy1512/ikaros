@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require 'ikaros'
+
+$stdout.sync = true
+$stderr.sync = true
+
+Ikaros::CLI.start
