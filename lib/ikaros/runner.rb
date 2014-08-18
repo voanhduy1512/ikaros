@@ -16,7 +16,7 @@ module Ikaros
     private
     def start_services
       @config.services.each do |service|
-        container = Container.new(service)
+        container = Container.new(service, daemon: true)
         container.start
         @containers << container
       end
