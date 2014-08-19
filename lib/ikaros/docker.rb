@@ -42,8 +42,7 @@ module Ikaros
           exit_code = wait_thr.value.exitstatus
 
         end
-        puts exit_code
-        [result, exit_code]
+        result.chomp
       end
     end
   end

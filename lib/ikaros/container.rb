@@ -15,7 +15,7 @@ module Ikaros
     end
 
     def start
-      @id, _ = @service.run image, @options
+      @id = @service.run image, @options
     end
 
     def stop
