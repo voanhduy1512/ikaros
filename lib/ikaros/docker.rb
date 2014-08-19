@@ -43,7 +43,7 @@ module Ikaros
 
         end
         puts exit_code
-        result, exit_code
+        [result, exit_code]
       end
     end
   end
