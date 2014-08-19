@@ -31,14 +31,19 @@ module Ikaros
       end
 
       def exec(command)
-        stdout = ""
-        Open3.popen3(command) do |i,o,e,t|
-          while line = o.gets
-            stdout = "#{stdout}#{line}"
+        result  = ''
+        exit_code = 0
+        Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+          while line = stdout.gets
+            result = "#{result}#{line}"
             puts line
           end
+
+          exit_code = wait_thr.value.exitstatus
+
         end
-        stdout
+        puts exit_code
+        result, exit_code
       end
     end
   end
