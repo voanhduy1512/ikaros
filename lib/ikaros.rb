@@ -8,8 +8,4 @@ module Ikaros
   def logger
     @logger ||= Logger.new $stdout
   end
-
-  def bundle_path
-
-  end
 end

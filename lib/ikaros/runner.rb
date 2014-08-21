@@ -64,7 +64,7 @@ module Ikaros
     end
 
     def bundle_path
-      ENV['CACHE_BUNDLE_PATH']
+      "#{ENV['CACHE_BUNDLE_PATH']}/#{@config.project_name}"
     end
   end
 end
