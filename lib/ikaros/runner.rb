@@ -64,7 +64,7 @@ module Ikaros
     end
 
     def bundle_path
-      ENV['BUNDLE_PATH']
+      ENV['CACHE_BUNDLE_PATH']
     end
   end
 end
