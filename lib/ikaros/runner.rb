@@ -23,11 +23,7 @@ module Ikaros
     end
 
     def run_test
-      main_image = case @config.app_type
-        when 'ruby'
-          'voanhduy1512/ruby'
-      end
-      app = Container.new(main_image, links: @containers)
+      app = Container.new(@config.app_type, options_for_main_container)
       app.start
     end
 
@@ -35,6 +31,40 @@ module Ikaros
       @containers.each do |container|
         container.stop
       end
+    end
+
+    private
+    def options_for_main_container
+      env = {}
+      link = {}
+      @containers.each do |container|
+        case container.basename
+        when 'redis'
+          env['REDISTOGO_URL'] = 'redis://redis'
+          env['REDIS_URL'] = 'redis://redis'
+        when 'elasticsearch'
+          env['ELASTICSEARCH_URL'] = 'http://elasticsearch:9200'
+        end
+
+        link[container.basename] = container.name
+      end
+
+      mount = {
+        '/code' => @config.project_path,
+        '/scripts' => File.expand_path("../scripts", __FILE__),
+        '/bundle' => bundle_path
+      }
+
+      {
+        link: link,
+        env: env,
+        mount: mount,
+        output: true
+      }
+    end
+
+    def bundle_path
+      ENV['BUNDLE_PATH']
     end
   end
 end

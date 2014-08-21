@@ -2,12 +2,26 @@ require_relative './docker'
 
 module Ikaros
   class Container
-    attr_accessor :image, :id
+    attr_accessor :basename, :image, :id
 
-    def initialize(image, options = {})
-      self.image = image
+    def initialize(basename, options = {})
+      self.basename = basename
+      self.image = basename
       @service = options.delete(:service) || Docker
       @options = options
+    end
+
+    def image= value
+      @image = case value
+        when 'ruby'
+          'voanhduy1512/ruby'
+        when 'postgres'
+          'sss_postgresql'
+        when 'elasticsearch'
+          'dockerfile/elasticsearch'
+        else
+          value
+      end
     end
 
     def name
