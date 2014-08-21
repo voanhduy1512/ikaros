@@ -30,7 +30,7 @@ module Ikaros
         command = "#{command} #{image}"
         command = "#{command} /scripts/ruby.sh" unless options[:daemon]
 
-        exec command
+        exec command, options
       end
 
       def stop(id)
