@@ -1,4 +1,3 @@
-require 'pry'
 require 'ikaros/version'
 require 'ikaros/logger'
 require 'ikaros/error'
