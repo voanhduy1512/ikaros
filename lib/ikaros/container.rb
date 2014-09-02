@@ -19,6 +19,8 @@ module Ikaros
           'sss_postgresql'
         when 'elasticsearch'
           'dockerfile/elasticsearch'
+        when 'sphinxsearch'
+          'voanhduy1512/sphinxsearch'
         else
           value
       end
