@@ -1,11 +1,17 @@
 require 'ikaros/version'
 require 'ikaros/logger'
-require 'ikaros/error'
-require 'ikaros/cli'
 
 module Ikaros
-  extend self
-  def logger
+  def self.logger
     @logger ||= Logger.new $stdout
   end
 end
+
+require 'ikaros/error'
+require 'ikaros/config'
+# require 'ikaros/service'
+# require 'ikaros/service_runner'
+# require 'ikaros/application'
+require 'ikaros/builder'
+require 'ikaros/build'
+require 'ikaros/cli'

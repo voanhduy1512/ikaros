@@ -1,5 +1,3 @@
-require_relative './docker'
-
 module Ikaros
   class Container
     attr_accessor :basename, :image, :id

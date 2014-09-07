@@ -2,26 +2,45 @@ require 'yaml'
 module Ikaros
   class Config
     def initialize(path)
-      @path = path
-      @config = YAML.load_file @path
-      @dir_path = ::File.dirname ::File.realpath(@path)
-      @dir_name = @dir_path.match(/\w+$/).to_s
+      @config = YAML.load(File.read(path))
+      @project_path = ::File.dirname ::File.realpath(path)
+      @project_name = @project_path.match(/\w+$/).to_s
+    end
+
+    def language
+      @config['language']
+    end
+
+    def versions
+      @config['versions']
+    end
+
+    def version
+      (@config.versions && @config.versions.first) || nil
     end
 
     def services
       @config['services']
     end
 
-    def app_type
-      @config['language']
+    def application
+      @config.reject{|k,v| k == 'services'}
     end
 
     def project_path
-      @dir_path
+      @project_path
     end
 
     def project_name
-      @dir_name
+      @project_name
+    end
+
+    def bundle_cache?
+      @config['cache']
+    end
+
+    def bundle_cache_path
+      "#{ENV['CACHE_BUNDLE_PATH']}/#{project_name}"
     end
   end
 end

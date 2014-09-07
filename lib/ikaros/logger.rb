@@ -21,7 +21,8 @@ module Ikaros
 
   class SimpleFormatter < ::Logger::Formatter
     def call(severity, timestamp, progname, msg)
-      "#{String === msg ? msg : msg.inspect}\n"
+      message = "#{String === msg ? msg : msg.inspect}"
+      "#{message.chomp}\n"
     end
   end
 end

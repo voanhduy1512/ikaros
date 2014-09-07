@@ -13,7 +13,7 @@ module Ikaros
       Open3.popen3(@command) do |stdin, stdout, stderr, wait_thr|
         while line = stdout.gets
           result = "#{result}#{line}"
-          logger.debug line
+          logger.debug line unless output?
           logger.info line if output?
         end
         unless wait_thr.value.success?

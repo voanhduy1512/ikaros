@@ -1,6 +1,4 @@
 require 'thor'
-require_relative './config'
-require_relative './runner'
 
 module Ikaros
   class CLI < Thor
@@ -12,14 +10,14 @@ module Ikaros
       end
       check_requirement
 
-      config_file = Config.new '.ikaros.yml'
-      Runner.new(config_file).run
+      app_config = Config.new '.ikaros.yml'
+      Build.new(app_config, Builder::Docker).run
     end
 
     private
     def check_requirement
       raise Error::ConfigMissing.new unless have_config_file?
-      raise Error::CacheBundleMissing.new unless have_bundle_cache?
+      # raise Error::CacheBundleMissing.new unless have_bundle_cache?
     end
 
     def have_config_file?
